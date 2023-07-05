@@ -1,0 +1,32 @@
+FROM php:8.1.0-fpm-alpine
+
+# Install packages
+RUN apk add --no-cache curl git build-base zlib-dev oniguruma-dev autoconf bash
+RUN apk add --update linux-headers
+
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+COPY ./docker/php-fpm/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+# Додайте команду для копіювання драйвера MySQL в контейнер
+COPY path/to/mysql-driver.jar /path/to/destination/mysql-driver.jar
+
+# Додайте команду для встановлення залежностей та налаштування драйвера
+RUN command-to-install-mysql-driver
+
+# Configure non-root user.
+ARG PUID=1000
+ARG PGID=1000
+
+RUN apk add --no-cache shadow
+
+
+# Source code
+COPY ./ /var/www
+WORKDIR /var/www
+
+# Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+#RUN composer install --no-interaction
+
+CMD php-fpm
+
+EXPOSE 9000
