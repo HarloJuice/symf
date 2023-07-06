@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class Test2Controller extends AbstractController
 {
     //#[Route('/test2', name: 'app_test2')]
-    #[Route('/', name: 'homepage')]
+    #[Route('/test', name: 'homepage2')]
     public function index(Request $request): Response
     {
         $greet = '';

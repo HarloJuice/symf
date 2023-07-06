@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ConferenceController extends AbstractController
 {
-    #[Route('/conference', name: 'app_conference')]
+    #[Route('/conference1', name: 'app_conference')]
     public function index(): JsonResponse
     {
         return $this->json([
